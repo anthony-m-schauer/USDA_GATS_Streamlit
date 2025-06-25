@@ -151,7 +151,7 @@ if submitted:
                 "- 🔴 **> 60%** – Highly volatile / unstable market  \n\n")
             
             # Herfindahl Index 
-            '''st.subheader("🧾 Herfindahl Index")
+            st.subheader("🧾 Herfindahl Index")
             with st.expander("**What is the Herfindahl Index?**"):
                 st.markdown("The Herfindahl-Hirschman Index (HHI) is a measure of how concentrated or competitive a market is. "
                 "It ranges from 0 to 1 (or 0 to 10,000 in some presentations), where lower values indicate a more competitive market with many small players, "
@@ -166,7 +166,7 @@ if submitted:
                 index_cols = ['Year', 'HHI Index']
                 hhi_df = calculate_hhi(hs10_input.strip(), table)
                 hhi_df = hhi_df.reindex(columns=[col for col in index_cols if col in hhi_df.columns])
-                st.dataframe(hhi_df)'''
+                st.dataframe(hhi_df)
             
             # Shannon Entropy Index
             '''st.subheader("🔢 Shannon Index")
