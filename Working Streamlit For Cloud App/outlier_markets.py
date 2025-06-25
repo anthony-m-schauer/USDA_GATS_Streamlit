@@ -63,9 +63,8 @@ def get_outlier_markets(hs10_code, table):
                 continue
 
             sub_df = pd.read_sql(
-                f"SELECT value{year} FROM {table} WHERE hs10_code = %s AND value{year} IS NOT NULL",
-                conn,
-                params=(hs10_code,)
+                f"SELECT value{year} FROM {table} WHERE hs10_code = '{hs10_code}' AND value{year} IS NOT NULL",
+                conn
             )
             mean = sub_df[f"value{year}"].mean()
             val = row[col]
