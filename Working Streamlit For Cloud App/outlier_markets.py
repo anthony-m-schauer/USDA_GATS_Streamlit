@@ -33,18 +33,17 @@ def get_years_from_columns(cursor, table, schema="public"):
 
 ##### Step 2: Outlier Summary 
 def get_outlier_markets(hs10_code, table):
-    
     conn = connect_to_sql()
     cursor = conn.cursor()
     years = get_years_from_columns(cursor, table)
     outlier_summary = {}
-    
-    query = f"SELECT * FROM {table} WHERE hs10_code = '{hs10_code}' AND outlier IS NOT NULL"
+
+    query = f"SELECT * FROM {table} WHERE hs10_code = '{hs10_code}'"
     df = pd.read_sql(query, conn)
 
     if df.empty:
-        print(f"\n✅ No outliers found for HS10 code: {hs10_code}")
-        return
+        print(f"\n✅ No data found for HS10 code: {hs10_code}")
+        return None
 
     for _, row in df.iterrows():
         country = row["country_name"]
@@ -55,26 +54,29 @@ def get_outlier_markets(hs10_code, table):
             if pd.isna(row[col]):
                 continue
 
-            outlier_years = str(row['outlier']).split(',')
-            if str(year) not in outlier_years:
-                continue
-
-            sub_query = f"SELECT value{year} FROM {table} WHERE hs10_code = '{hs10_code}' AND value{year} IS NOT NULL"
+            sub_query = f"SELECT {col} FROM {table} WHERE hs10_code = '{hs10_code}' AND {col} IS NOT NULL"
             sub_df = pd.read_sql(sub_query, conn)
             
-            mean = sub_df[f"value{year}"].mean()
+            mean = sub_df[col].mean()
+            std = sub_df[col].std()
             val = row[col]
-            direction = "High" if val > mean else "Low"
-            entries.append(f"{year} ({direction})")
+            if std == 0 or pd.isna(std):
+                continue
+            z_score = (val - mean) / std
+            direction = "High" if z_score > 0 else "Low"
+            if abs(z_score) > 2:
+                entries.append(f"{year} ({direction}, z={z_score:.2f})")
 
         if entries:
             outlier_summary[country] = ', '.join(entries)
 
-    result_df = pd.DataFrame(list(outlier_summary.items()), columns=["Country", "Outlier Years"])
     cursor.close()
     conn.close()
-    
+
+    result_df = pd.DataFrame(list(outlier_summary.items()), columns=["Country", "Outlier Years"])
+
     return result_df
+
 
 ##### Step 3: Run the Script
 if __name__ == "__main__":
