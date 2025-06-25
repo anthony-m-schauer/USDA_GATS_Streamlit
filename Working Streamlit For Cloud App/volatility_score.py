@@ -31,8 +31,9 @@ def calculate_volatility_score(hs10_code, table):
     conn = connect_to_sql()
     cursor = conn.cursor()
     years = get_years_from_columns(cursor, table)
-    df = pd.read_sql(f"SELECT * FROM {table} WHERE hs10_code = %s", conn, params=(hs10_code,))
-    totals = []
+    query = f"SELECT * FROM {table} WHERE hs10_code =  '{hs10_code}' AND outlier IS NOT NULL"
+    df = pd.read_sql(query, conn)
+    totals = []    
 
     if df.empty:
         print(f"⚠️ No data found for HS10 code: {hs10_code}")
