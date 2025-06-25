@@ -40,9 +40,8 @@ def get_outlier_markets(hs10_code, table):
     outlier_summary = {}
 
     df = pd.read_sql(
-        f"SELECT * FROM {table} WHERE hs10_code = %s AND outlier IS NOT NULL",
-        conn,
-        params=(hs10_code,)
+        f"SELECT * FROM {table} WHERE hs10_code = '{hs10_code}' AND outlier IS NOT NULL",
+        conn
     )
 
     if df.empty:
