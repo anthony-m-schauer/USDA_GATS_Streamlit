@@ -19,7 +19,7 @@ def get_years_from_columns(cursor, table):
         SELECT column_name 
         FROM information_schema.columns 
         WHERE table_name = %s AND table_schema = %s
-    """, (table, schema))
+    """, table)
     
     columns = [col[0] for col in cursor.fetchall()]
     
