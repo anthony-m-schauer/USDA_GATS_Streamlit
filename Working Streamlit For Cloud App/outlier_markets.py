@@ -38,11 +38,9 @@ def get_outlier_markets(hs10_code, table):
     cursor = conn.cursor()
     years = get_years_from_columns(cursor, table)
     outlier_summary = {}
-
-    df = pd.read_sql(
-        f"SELECT * FROM {table} WHERE hs10_code = {hs10_code} AND outlier IS NOT NULL",
-        conn
-    )
+    
+    query = f"SELECT * FROM {table} WHERE hs10_code = {hs10_code} AND outlier IS NOT NULL"
+    df = pd.read_sql(query, conn)
 
     if df.empty:
         print(f"\n✅ No outliers found for HS10 code: {hs10_code}")
@@ -61,10 +59,9 @@ def get_outlier_markets(hs10_code, table):
             if str(year) not in outlier_years:
                 continue
 
-            sub_df = pd.read_sql(
-                f"SELECT value{year} FROM {table} WHERE hs10_code = {hs10_code} AND value{year} IS NOT NULL",
-                conn
-            )
+            sub_query = f"SELECT value{year} FROM {table} WHERE hs10_code = {hs10_code} AND value{year} IS NOT NULL"
+            sub_df = pd.read_sql(sub_query, conn)
+            
             mean = sub_df[f"value{year}"].mean()
             val = row[col]
             direction = "High" if val > mean else "Low"
