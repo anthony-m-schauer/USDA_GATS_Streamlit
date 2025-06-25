@@ -136,7 +136,7 @@ if submitted:
                 st.info("No market data available for this code.")
 
             # Volatility  Score
-            '''st.subheader("⚡ Volatility Score")
+            st.subheader("⚡ Volatility Score")
             col1, col2, col3 = st.columns([10, 1, 10])
             with col2:
                 volatility_df = calculate_volatility_score(hs10_input.strip(), table)
@@ -148,7 +148,7 @@ if submitted:
                 st.markdown("- 🟢 **< 10%** – Very stable market  \n"
                 "- 🔵 **10%–30%** – Moderately stable  \n"
                 "- 🟠 **30%–60%** – Volatile market  \n"
-                "- 🔴 **> 60%** – Highly volatile / unstable market  \n\n")'''
+                "- 🔴 **> 60%** – Highly volatile / unstable market  \n\n")
             
             # Herfindahl Index 
             '''st.subheader("🧾 Herfindahl Index")
