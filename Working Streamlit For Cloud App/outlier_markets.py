@@ -65,7 +65,7 @@ def get_outlier_markets(hs10_code, table):
             z_score = (val - mean) / std
             direction = "High" if z_score > 0 else "Low"
             if abs(z_score) > 2:
-                entries.append(f"{year} ({direction}, z={z_score:.2f})")
+                entries.append(f"{year} ({direction})")
 
         if entries:
             outlier_summary[country] = ', '.join(entries)
