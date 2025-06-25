@@ -169,7 +169,7 @@ if submitted:
                 st.dataframe(hhi_df)'''
             
             # Shannon Entropy Index
-            st.subheader("🔢 Shannon Index")
+            '''st.subheader("🔢 Shannon Index")
             with st.expander("**What is the Shannon Entropy Index?**"):
                 st.markdown("The Shannon Entropy Index is a measure of diversity or uncertainty in a market. "
                 "It reflects how evenly distributed market shares are among participants. The value increases with the number of firms "
@@ -186,7 +186,7 @@ if submitted:
                 index_cols = ['Year', 'Shannon Index']
                 shannon_df = calculate_shannon_index(hs10_input.strip(), table)
                 shannon_df = shannon_df.reindex(columns=[col for col in index_cols if col in shannon_df.columns])
-                st.dataframe(shannon_df)
+                st.dataframe(shannon_df)'''
 
             # Market Percent 
             st.subheader("💯 Market Percent Index")
