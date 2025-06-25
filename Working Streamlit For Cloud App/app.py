@@ -75,11 +75,11 @@ if submitted:
             st.dataframe(summary_df)
 
             # Outlier Markets 
-            st.subheader("🟨 Outlier Markets")
+            '''st.subheader("🟨 Outlier Markets")
             outlier_df = get_outlier_markets(hs10_input.strip(), table)
             col1, col2, col3 = st.columns([1, 3, 1])
             with col2:
-                st.dataframe(outlier_df)
+                st.dataframe(outlier_df)'''
 
             # Top Markets 
             st.subheader("🌎 Top Export Markets")
