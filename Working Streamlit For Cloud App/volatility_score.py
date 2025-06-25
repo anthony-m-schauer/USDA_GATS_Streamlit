@@ -14,15 +14,21 @@ warnings.filterwarnings('ignore', message='pandas only supports SQLAlchemy conne
 
 
 ##### Step 1: Get List of Trade Years
-def get_years_from_columns(cursor, table):
-    cursor.execute(f"SHOW COLUMNS FROM {table}")
+def get_years_from_columns(cursor, table, schema="public"):
+    cursor.execute("""
+        SELECT column_name 
+        FROM information_schema.columns 
+        WHERE table_name = %s AND table_schema = %s
+    """, (table, schema))
+    
     columns = [col[0] for col in cursor.fetchall()]
     
     years = sorted([
         int(re.search(r'\d{4}', col).group())
         for col in columns
-        if col.startswith('value') and re.search(r'\d{4}', col)
+        if col and col.startswith('value') and re.search(r'\d{4}', col)
     ])
+    
     return years
 
 
