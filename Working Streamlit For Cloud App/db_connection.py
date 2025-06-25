@@ -6,16 +6,12 @@
 ######################################################################################
 
 import psycopg2
+import streamlit as st
 
 def connect_to_sql():
+    db_url = st.secrets["DB_URL"]
     try:
-        conn = psycopg2.connect(
-            dbname="neondb",
-            user="neondb_owner",
-            password="npg_Spg3yx4BsIRr",
-            host="ep-dawn-violet-a84hks0v-pooler.eastus2.azure.neon.tech",
-            sslmode="require"
-        )
+        conn = psycopg2.connect(db_url)
         return conn
     except Exception as e:
         return None
