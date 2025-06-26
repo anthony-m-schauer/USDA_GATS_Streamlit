@@ -43,7 +43,7 @@ def get_top_markets(hs10_code, table):
         last_10 = years[-10:] if len(years) >= 10 else years
         last_5 = years[-5:] if len(years) >= 5 else years
 
-        top_all = top_n(df_long)
+        top_all = top_n(df_long, "All Time")
         top_10 = top_n(df_long, "Last 10 Years", last_10)
         top_5 = top_n(df_long, "Last 5 Years", last_5)
         conn.close()
