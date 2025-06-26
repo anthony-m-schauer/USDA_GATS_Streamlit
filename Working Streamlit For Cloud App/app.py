@@ -189,7 +189,7 @@ if submitted:
                 st.dataframe(shannon_df)
 
             # Market Percent 
-            '''st.subheader("💯 Market Percent Index")
+            st.subheader("💯 Market Percent Index")
             with st.expander("**What is the Market Percent Index?**"):
                 st.markdown("The Market Percent Index is another way to interpret the share of a total market a single " 
                 "HS-10 code makes up. It is the percent a single codes makes up of the total global market for a given year.")
@@ -199,7 +199,7 @@ if submitted:
                 index_cols = ['Year', 'Percent Total Market']
                 percent_df = calculate_percents_index(hs10_input.strip(), table)
                 percent_df = percent_df.reindex(columns=[col for col in index_cols if col in percent_df.columns])
-                st.dataframe(percent_df)'''
+                st.dataframe(percent_df)
         
         else:
             st.warning("No data found for that HS-10 code.")
