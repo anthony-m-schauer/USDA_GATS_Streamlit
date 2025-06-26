@@ -137,6 +137,11 @@ if submitted:
 
             # Volatility  Score
             st.subheader("⚡ Volatility Score")
+            with st.expander("**📊 Volatility Score Interpretation Guide:**"):
+                st.markdown("- 🟢 **< 10%** – Very stable market  \n"
+                "- 🔵 **10%–30%** – Moderately stable  \n"
+                "- 🟠 **30%–60%** – Volatile market  \n"
+                "- 🔴 **> 60%** – Highly volatile / unstable market  \n\n")
             col1, col2, col3 = st.columns([5, 1, 5])
             with col2:
                 volatility_df = calculate_volatility_score(hs10_input.strip(), table)
@@ -144,11 +149,6 @@ if submitted:
             with st.expander("**How is the Volatility Score calulated?**"):
                 st.markdown("The Volatility Score is calulated by finding the standard deviation of the percent changes. \n" 
                 "**Note:** Volatility is capped at ±200% to prevent extreme outliers from dominating.")
-            with st.expander("**📊 Volatility Score Interpretation Guide:**"):
-                st.markdown("- 🟢 **< 10%** – Very stable market  \n"
-                "- 🔵 **10%–30%** – Moderately stable  \n"
-                "- 🟠 **30%–60%** – Volatile market  \n"
-                "- 🔴 **> 60%** – Highly volatile / unstable market  \n\n")
             
             # Herfindahl Index 
             st.subheader("🧾 Herfindahl Index")
