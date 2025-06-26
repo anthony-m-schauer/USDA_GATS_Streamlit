@@ -137,7 +137,7 @@ if submitted:
 
             # Volatility  Score
             st.subheader("⚡ Volatility Score")
-            col1, col2, col3 = st.columns([10, 1, 10])
+            col1, col2, col3 = st.columns([5, 1, 5])
             with col2:
                 volatility_df = calculate_volatility_score(hs10_input.strip(), table)
                 st.metric(label=" ", value=f"{volatility_df:.2f}")
