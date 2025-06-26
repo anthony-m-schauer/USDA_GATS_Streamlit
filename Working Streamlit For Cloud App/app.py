@@ -98,23 +98,25 @@ if submitted:
             avg_df = get_average_exports(hs10_input.strip(), table)
             if avg_df:
                 avg_3, avg_5, avg_10, avg_15, avg_all = avg_df
-                col1, col2, col3 = st.columns(3)
+                col1, col2, col3, col4, col5 = st.columns(3)
 
                 with col1:
                     st.markdown("**Last 3 Years**")
                     st.dataframe(avg_3)
 
-                    st.markdown("**Last 10 Years**")
-                    st.dataframe(avg_10)
-
                 with col2:
                     st.markdown("**Last 5 Years**")
                     st.dataframe(avg_5)
+                
+                with col3:
+                    st.markdown("**Last 10 Years**")
+                    st.dataframe(avg_10)
 
+                with col4:
                     st.markdown("**Last 15 Years**")
                     st.dataframe(avg_15)
 
-                with col3:
+                with col5:
                     st.markdown("**All Time**")
                     st.dataframe(avg_all)
             else:
