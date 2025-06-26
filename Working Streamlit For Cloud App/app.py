@@ -97,7 +97,7 @@ if submitted:
             st.subheader("📊 Average Market Values")
             avg_df = get_average_exports(hs10_input.strip(), table)
             if avg_df:
-                avg_3, avg_5, avg_10, avg_15, avg_all = avg_df
+                avg_all, avg_15, avg_10, avg_5, avg_3 = avg_df
                 col1, col2, col3, col4, col5 = st.columns(5)
 
                 with col1:
