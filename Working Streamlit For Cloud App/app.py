@@ -16,6 +16,7 @@ table = "hs10_cleaned"
 from column_summary import get_column_summary 
 from outlier_markets import get_outlier_markets
 from top_markets import get_top_markets
+from multi_year_avg import get_average_exports
 from trending_markets import get_trending_markets
 from falling_markets import get_falling_markets
 from volatility_score import calculate_volatility_score
@@ -91,6 +92,34 @@ if submitted:
                     st.dataframe(top_5)
             else:
                 st.info("No market data available for this code.")
+
+            # Average Market Values
+            st.subheader("📊 Average Market Values")
+            avg_df = get_average_exports(hs10_input.strip(), table)
+            if avg_df:
+                avg_3, avg_5, avg_10, avg_15, avg_all = avg_df
+                col1, col2, col3 = st.columns(3)
+
+                with col1:
+                    st.markdown("**Last 3 Years**")
+                    st.dataframe(avg_3)
+
+                    st.markdown("**Last 10 Years**")
+                    st.dataframe(avg_10)
+
+                with col2:
+                    st.markdown("**Last 5 Years**")
+                    st.dataframe(avg_5)
+
+                    st.markdown("**Last 15 Years**")
+                    st.dataframe(avg_15)
+
+                with col3:
+                    st.markdown("**All Time**")
+                    st.dataframe(avg_all)
+            else:
+                st.info("No average value data available for this code.")
+ 
 
             # Trending Markets 
             st.subheader("📈 Top Trending Markets")
