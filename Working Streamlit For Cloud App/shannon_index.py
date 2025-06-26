@@ -15,15 +15,21 @@ warnings.filterwarnings('ignore', message='pandas only supports SQLAlchemy conne
 
 
 ##### Step 1: Get List of Trade Years
-def get_years_from_columns(cursor, table):
-    cursor.execute(f"SHOW COLUMNS FROM {table}")
+def get_years_from_columns(cursor, table, schema="public"):
+    cursor.execute("""
+        SELECT column_name 
+        FROM information_schema.columns 
+        WHERE table_name = %s AND table_schema = %s
+    """, (table, schema))
+    
     columns = [col[0] for col in cursor.fetchall()]
     
     years = sorted([
         int(re.search(r'\d{4}', col).group())
         for col in columns
-        if col.startswith('value') and re.search(r'\d{4}', col)
+        if col and col.startswith('value') and re.search(r'\d{4}', col)
     ])
+    
     return years
 
 ##### Step 3: Calculate Shannon Index
@@ -31,7 +37,8 @@ def calculate_shannon_index(hs10_code, table):
     conn = connect_to_sql()
     cursor = conn.cursor()
     years = get_years_from_columns(cursor, table)
-    df = pd.read_sql(f"SELECT * FROM {table} WHERE hs10_code = %s", conn, params=(hs10_code,))
+    query = f"SELECT * FROM {table} WHERE hs10_code = '{hs10_code}'"
+    df = pd.read_sql(query, conn)
     results = []
 
     if df.empty:
