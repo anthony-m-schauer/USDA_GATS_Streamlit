@@ -102,23 +102,23 @@ if submitted:
 
                 with col1:
                     st.markdown("**Last 3 Years**")
-                    st.dataframe(avg_3)
+                    st.dataframe(avg_3.round(2))
 
                 with col2:
                     st.markdown("**Last 5 Years**")
-                    st.dataframe(avg_5)
+                    st.dataframe(avg_5.round(2))
                 
                 with col3:
                     st.markdown("**Last 10 Years**")
-                    st.dataframe(avg_10)
+                    st.dataframe(avg_10.round(2))
 
                 with col4:
                     st.markdown("**Last 15 Years**")
-                    st.dataframe(avg_15)
+                    st.dataframe(avg_15.round(2))
 
                 with col5:
                     st.markdown("**All Time**")
-                    st.dataframe(avg_all)
+                    st.dataframe(avg_all.round(2))
             else:
                 st.info("No average value data available for this code.")
  
